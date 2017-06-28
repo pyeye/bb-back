@@ -21,7 +21,7 @@ from rest_framework import routers
 from apps.events.views import EventViewSet
 from apps.instagram.views import InstagramViewSet
 from apps.news.views import NewsViewSet
-from apps.sales.views import SalesViewSet
+from apps.sales.views import SalesAPIView
 from apps.menu.views import MenuViewSet, CategoryAPIView
 from apps.gallery.views import GalleryAPIView, AlbumAPIView
 from apps.reservation.views import ReservationAPIView
@@ -32,7 +32,6 @@ router.register(r'events', EventViewSet, base_name='api-events')
 router.register(r'instagram', InstagramViewSet, base_name='api-instagram')
 router.register(r'news', NewsViewSet, base_name='api-news')
 router.register(r'menu', MenuViewSet, base_name='api-menu')
-router.register(r'sales', SalesViewSet, base_name='api-sales')
 
 urlpatterns = [
     url(r'^api/v1/', include(router.urls)),
@@ -40,6 +39,7 @@ urlpatterns = [
     url(r'^api/v1/reservation/', ReservationAPIView.as_view()),
     url(r'^api/v1/albums/(?P<pk>\d+)', AlbumAPIView.as_view()),
     url(r'^api/v1/albums/', GalleryAPIView.as_view()),
+    url(r'^api/v1/sales/', SalesAPIView.as_view()),
     url(r'^api/v1/category/menu/', CategoryAPIView.as_view()),
 ]
 

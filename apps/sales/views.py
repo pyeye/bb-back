@@ -1,18 +1,15 @@
-from rest_framework import viewsets
+from datetime import datetime
 
-from .serializers import MonthSerializer
-from .models import Month
+from rest_framework import generics
+
+from .serializers import DaySaleSerializer
+from .models import DaySaleRel
 
 
-class SalesViewSet(viewsets.ReadOnlyModelViewSet):
-
-    serializer_class = MonthSerializer
-    lookup_field = 'code'
+class SalesAPIView(generics.ListAPIView):
+    serializer_class = DaySaleSerializer
 
     def get_queryset(self):
-        queryset = Month.related_objects.all()
-        month = self.request.query_params.get('month', None)
-        if month is not None:
-            queryset = queryset.filter(code=month)
+        today = datetime.now()
+        queryset = DaySaleRel.objects.filter(month__date__month=today.month, month__date__year=today.year)
         return queryset
-
