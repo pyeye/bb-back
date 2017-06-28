@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from versatileimagefield.serializers import VersatileImageFieldSerializer
 
-from .models import Month, Day, Sale
+from .models import Month, Day, Sale, DaySaleRel
 
 
 class DaySerializer(serializers.ModelSerializer):
@@ -12,17 +12,25 @@ class DaySerializer(serializers.ModelSerializer):
 
 
 class SaleSerializer(serializers.ModelSerializer):
-    day = DaySerializer(read_only=True)
     image = VersatileImageFieldSerializer(sizes='sales_image')
 
     class Meta:
         model = Sale
-        fields = ('day', 'name', 'info', 'image')
+        fields = ('name', 'info', 'image')
 
 
-class MonthSerializer(serializers.ModelSerializer):
+class DaySaleSerializer(serializers.ModelSerializer):
+    day = DaySerializer(read_only=True)
     sales = SaleSerializer(many=True, read_only=True)
 
     class Meta:
+        model = DaySaleRel
+        fields = ('day', 'sales')
+
+
+class MonthSerializer(serializers.ModelSerializer):
+    day_sales = DaySaleSerializer(many=True, read_only=True)
+
+    class Meta:
         model = Month
-        fields = ('pk', 'name', 'sales')
+        fields = ('pk', 'date', 'day_sales')

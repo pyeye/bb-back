@@ -3,7 +3,7 @@ from versatileimagefield.serializers import VersatileImageFieldSerializer
 from datetime import datetime
 
 from .models import Event, Artist
-from apps.sales.models import Sale
+from apps.sales.models import DaySaleRel
 
 
 class ArtistSerializer(serializers.ModelSerializer):
@@ -21,7 +21,10 @@ class EventSerializer(serializers.ModelSerializer):
 
     def get_today_sales(self, obj):
         weekday_code = obj.date.weekday() + 101
-        return Sale.objects.values_list('name').filter(month__code=obj.date.month, day__code=weekday_code)
+        return DaySaleRel.objects.values_list('sales__name').filter(
+            month__date__month=obj.date.month,
+            month__date__year=obj.date.year,
+            day__code=weekday_code)
 
     class Meta:
         model = Event

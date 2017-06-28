@@ -7,25 +7,21 @@ from django.contrib.postgres.fields import JSONField
 from versatileimagefield.fields import VersatileImageField
 from versatileimagefield.image_warmer import VersatileImageFieldWarmer
 
-from .managers import MonthManager, SaleManager
+from .managers import MonthManager, DaySaleManager
 
 
 def upload_location(instance, filename):
-    month, day = instance.month.name, instance.day.name
     filename = str(uuid.uuid4())[:13] + '_' + filename
-    return "sales/{0}/{1}".format(month, filename)
+    return "sales/{0}".format(filename)
 
 
 class Month(models.Model):
-    name = models.CharField(max_length=255, null=False, blank=False, verbose_name='Месяц')
-    code = models.PositiveSmallIntegerField(null=False, blank=False, unique=True, verbose_name='Код')
+    date = models.DateField(null=False, blank=False, verbose_name='Дата')
     extra = JSONField(blank=True, null=True, default={}, verbose_name='Дополнительно')
 
     objects = models.Manager()
     related_objects = MonthManager()
 
-    def __str__(self):
-        return self.name
 
     class Meta:
         verbose_name = 'Месяц'
@@ -48,19 +44,28 @@ class Day(models.Model):
 class Sale(models.Model):
     name = models.CharField(max_length=255, null=False, blank=False, verbose_name='Название')
     info = models.TextField(null=False, blank=False, verbose_name='Информация')
-    day = models.ForeignKey(Day, related_name='sale', null=False, blank=False, verbose_name='День')
-    month = models.ForeignKey(Month, related_name='sales', null=False, blank=False, verbose_name='Месяц')
     image = VersatileImageField(upload_to=upload_location, null=False, blank=False, verbose_name='Фото')
     is_active = models.BooleanField(default=True, null=False, blank=True, verbose_name='Активированно')
     created_at = models.DateTimeField(auto_now=True, null=False, blank=True, verbose_name='Созданно')
     extra = JSONField(blank=True, null=True, default={}, verbose_name='Дополнительно')
 
-    objects = models.Manager()
-    related_objects = SaleManager()
+    def __str__(self):
+        return self.name
 
     class Meta:
         verbose_name = 'Акция'
         verbose_name_plural = 'Акции'
+
+
+class DaySaleRel(models.Model):
+    day = models.ForeignKey(Day, blank=False, null=False, related_name='current_days', verbose_name='Дни')
+    sales = models.ManyToManyField('Sale', related_name='current_sales', verbose_name='Акции')
+    month = models.ForeignKey(Month, blank=False, null=False, related_name='current_month', verbose_name='Месяцы')
+
+    objects = models.Manager()
+    related_objects = DaySaleManager()
+
+    class Meta:
         ordering = ['day__code']
 
 

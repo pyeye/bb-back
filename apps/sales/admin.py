@@ -2,25 +2,7 @@ from django.contrib import admin
 from django.db import models
 from pagedown.widgets import AdminPagedownWidget
 
-from .models import Month, Sale, Day
-
-
-class SaleInline(admin.TabularInline):
-    model = Sale
-    extra = 3
-
-    fields = ['name', 'info', 'day', 'image']
-
-    formfield_overrides = {
-        models.TextField: {'widget': AdminPagedownWidget},
-    }
-
-
-class MonthAdmin(admin.ModelAdmin):
-
-    inlines = [SaleInline]
-    list_display = ('name', 'code')
-    search_fields = ['name']
+from .models import Month, Sale, Day, DaySaleRel
 
 
 class DayAdmin(admin.ModelAdmin):
@@ -28,5 +10,28 @@ class DayAdmin(admin.ModelAdmin):
     list_display = ('name', 'code')
 
 
-admin.site.register(Month, MonthAdmin)
+class SaleAdmin(admin.ModelAdmin):
+
+    list_display = ('name', 'is_active')
+
+    formfield_overrides = {
+        models.TextField: {'widget': AdminPagedownWidget},
+    }
+
+
+class DaySaleInline(admin.TabularInline):
+    model = DaySaleRel
+    extra = 3
+    filter_horizontal = ('sales',)
+
+
+class MonthAdmin(admin.ModelAdmin):
+
+    inlines = [DaySaleInline]
+    list_display = ('date',)
+
+
 admin.site.register(Day, DayAdmin)
+admin.site.register(Sale, SaleAdmin)
+admin.site.register(Month, MonthAdmin)
+
