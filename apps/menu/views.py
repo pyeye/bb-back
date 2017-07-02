@@ -1,10 +1,11 @@
 from rest_framework import viewsets, generics
+from rest_framework_extensions.cache.mixins import CacheResponseMixin
 
 from .serializers import MenuSerializer, CategorySerializer
 from .models import Menu, Category
 
 
-class MenuViewSet(viewsets.ReadOnlyModelViewSet):
+class MenuViewSet(CacheResponseMixin, viewsets.ReadOnlyModelViewSet):
 
     serializer_class = MenuSerializer
 
