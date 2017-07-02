@@ -32,7 +32,7 @@ class Album(models.Model):
     related_objects = GalleryManager()
 
     def __str__(self):
-        return self.name
+        return "{0}-{1}".format(self.name, self.pk)
 
     class Meta:
         verbose_name = 'Альбом'
@@ -49,6 +49,9 @@ class Image(models.Model):
     class Meta:
         verbose_name = 'Фотография'
         verbose_name_plural = 'Фотографии'
+
+    def __str__(self):
+        return str(self.created_at)
 
 
 @receiver(models.signals.post_save, sender=Image)
