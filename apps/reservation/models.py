@@ -22,6 +22,7 @@ class Reservation(models.Model):
     email = models.EmailField(max_length=255, null=True, blank=True, verbose_name='Почта')
     name = models.CharField(max_length=255, null=False, blank=False, verbose_name='Имя')
     count_people = models.PositiveSmallIntegerField(null=False, blank=False, verbose_name='Количество человек')
+    created_at = models.DateTimeField(auto_now=True, null=False, blank=True, verbose_name='Созданно')
     status = models.CharField(max_length=2, default=STATUS_WAITING, choices=STATUS_CHOICES, null=False, blank=True, verbose_name='Статус')
     comment = models.TextField(null=True, blank=True, verbose_name='Коментарий')
     extra = JSONField(default={}, null=False, blank=True, verbose_name='Экстра')

@@ -13,9 +13,30 @@ class ReservationAPIView(CreateAPIView):
 
     def perform_create(self, serializer):
         instance = serializer.save()
+        
+        created_at = instance.created_at.strftime("%Y-%m-%d %H:%M:%S")
+        title = "Новая бронь: {0}".format(created_at)
+        body = """
+        Имя: {name};
+        Телефон: {phone};
+        Дата: {date};
+        Время с: {time_start};
+        Время до: {time_end};
+        Количество человек: {people};
+        Комментарий: {comment}
+        """.format(
+            name=instance.name,
+            phone=instance.phone,
+            date=instance.date,
+            time_start=instance.time_start,
+            time_end=instance.time_end,
+            people=instance.count_people,
+            comment=instance.comment,
+        )
+
         send_mail(
-            'Новая бронь: ' + str(instance.name),
-            'https://maddogclub.com/api/v1/admin/reservation/reservation/' + str(instance.pk) + '/change/',
+            title,
+            body,
             settings.EMAIL_HOST_USER,
             ['reservation@borisbar.ru'],
             fail_silently=False
