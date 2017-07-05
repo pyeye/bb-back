@@ -13,7 +13,7 @@ class ReservationAPIView(CreateAPIView):
 
     def perform_create(self, serializer):
         instance = serializer.save()
-        
+
         created_at = instance.created_at.strftime("%Y-%m-%d %H:%M:%S")
         title = "Новая бронь: {0}".format(created_at)
         body = """
