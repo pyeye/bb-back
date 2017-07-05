@@ -26,7 +26,7 @@ class ReservationAPIView(CreateAPIView):
         Комментарий: {comment}
         """.format(
             name=instance.name,
-            phone=instance.phone,
+            phone=instance.phone_number,
             date=instance.date,
             time_start=instance.time_start,
             time_end=instance.time_end,
