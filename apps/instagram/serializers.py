@@ -15,4 +15,4 @@ class InstagramSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Instagram
-        fields = ('pk', 'short_code', 'img', 'likes', 'comments_count', 'category')
+        fields = ('pk', 'short_code', 'img', 'likes', 'comments_count', 'category', 'extra')
