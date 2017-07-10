@@ -46,8 +46,8 @@ class Instagram(models.Model):
         self.img = json_response['graphql']['shortcode_media']['display_url']
         self.comments_count = json_response['graphql']['shortcode_media']['edge_media_to_comment']['count']
         self.likes = json_response['graphql']['shortcode_media']['edge_media_preview_like']['count']
-        self.extra.username = json_response['graphql']['shortcode_media']['owner']['username']
-        self.extra.avatar = json_response['graphql']['shortcode_media']['owner']['profile_pic_url']
+        self.extra['username'] = json_response['graphql']['shortcode_media']['owner']['username']
+        self.extra['avatar'] = json_response['graphql']['shortcode_media']['owner']['profile_pic_url']
 
         super(Instagram, self).save(*args, **kwargs)
 
