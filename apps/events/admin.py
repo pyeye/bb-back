@@ -31,6 +31,7 @@ class EventAdmin(admin.ModelAdmin):
     list_display = ('name', 'is_special', 'date_format', 'start_format')
     list_filter = ['is_special', 'date']
     filter_horizontal = ('artists',)
+    exclude = ('discounts', 'is_special', 'extra')
     #list_editable = ['is_special']
     search_fields = ['name']
     date_hierarchy = 'date'
@@ -39,6 +40,7 @@ class EventAdmin(admin.ModelAdmin):
 class ArtistAdmin(admin.ModelAdmin):
     list_display = ('name', 'style')
     list_filter = ['style']
+    exclude = ('bio',)
     #list_editable = ['is_special']
     search_fields = ['name']
 

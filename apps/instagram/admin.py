@@ -13,6 +13,7 @@ class InstagramAdmin(admin.ModelAdmin):
 
     list_display = ('short_code', 'created_at_f')
     #list_editable = ['is_special']
+    exclude = ('likes', 'img', 'comments_count', 'extra')
     search_fields = ['short_code']
     date_hierarchy = 'created_at'
 

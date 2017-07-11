@@ -18,6 +18,7 @@ class AlbumAdmin(admin.ModelAdmin):
     inlines = [ImageInline]
     list_display = ('name', 'description', 'date_f')
     search_fields = ['name']
+    exclude = ('description',)
     date_hierarchy = 'created_at'
 
 
@@ -33,4 +34,4 @@ class ImageAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Album, AlbumAdmin)
-admin.site.register(Image, ImageAdmin)
+

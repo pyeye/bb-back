@@ -43,7 +43,7 @@ class Day(models.Model):
 
 class Sale(models.Model):
     name = models.CharField(max_length=255, null=False, blank=False, verbose_name='Название')
-    info = models.TextField(null=False, blank=False, verbose_name='Информация')
+    info = models.TextField(null=True, blank=True, verbose_name='Информация')
     image = VersatileImageField(upload_to=upload_location, null=False, blank=False, verbose_name='Фото')
     is_active = models.BooleanField(default=True, null=False, blank=True, verbose_name='Активированно')
     created_at = models.DateTimeField(auto_now=True, null=False, blank=True, verbose_name='Созданно')

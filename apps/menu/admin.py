@@ -29,13 +29,14 @@ class MenuAdmin(admin.ModelAdmin):
     list_filter = ['is_active']
     #list_editable = ['is_special']
     search_fields = ['name']
+    exclude = ('extra',)
     date_hierarchy = 'created_at'
 
 
 class CategoryAdmin(admin.ModelAdmin):
-    inlines = [ImageInline]
     list_display = ('name', 'group')
     search_fields = ['name']
+    exclude = ('template', 'extra')
 
 
 class GroupAdmin(admin.ModelAdmin):

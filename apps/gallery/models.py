@@ -26,7 +26,7 @@ class Album(models.Model):
     description = models.TextField(null=True, blank=True, verbose_name='Описание')
     date = models.DateField(null=False, blank=False, verbose_name='Дата')
     created_at = models.DateTimeField(auto_now=True, null=False, blank=True, verbose_name='Созданно')
-    main_image = VersatileImageField(upload_to=album_upload_location, null=False, blank=False, verbose_name='Фото')
+    main_image = VersatileImageField(upload_to=album_upload_location, null=False, blank=False, verbose_name='Обложка')
 
     objects = models.Manager()
     related_objects = GalleryManager()
