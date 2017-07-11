@@ -7,11 +7,10 @@ from .models import Event, Artist
 
 class EventAdmin(admin.ModelAdmin):
     fieldsets = [
-        ('Общая информация', {'fields': ['name', 'info', 'is_special', 'is_active']}),
+        ('Общая информация', {'fields': ['name', 'info',  'is_active']}),
         ('Информация об артистах', {'fields': ['artists']}),
         ('Информация о дате', {'fields': ['date', 'start']}),
         ('Афиша', {'fields': ['poster']}),
-        ('Дополнительно', {'fields': ['extra']}),
     ]
 
     formfield_overrides = {
@@ -31,7 +30,6 @@ class EventAdmin(admin.ModelAdmin):
     list_display = ('name', 'is_special', 'date_format', 'start_format')
     list_filter = ['is_special', 'date']
     filter_horizontal = ('artists',)
-    exclude = ('discounts', 'is_special', 'extra')
     #list_editable = ['is_special']
     search_fields = ['name']
     date_hierarchy = 'date'
