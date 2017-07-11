@@ -11,6 +11,7 @@ class ImageInline(admin.TabularInline):
 class PriceInline(admin.TabularInline):
     model = Price
     extra = 1
+    exclude = ('extra',)
 
 
 class MenuAdmin(admin.ModelAdmin):
@@ -46,5 +47,4 @@ class GroupAdmin(admin.ModelAdmin):
 
 admin.site.register(Menu, MenuAdmin)
 admin.site.register(Category, CategoryAdmin)
-admin.site.register(Group, GroupAdmin)
 

@@ -6,6 +6,7 @@ from .models import Image, Album
 class ImageInline(admin.TabularInline):
     model = Image
     extra = 3
+    exclude = ('info',)
 
 
 class AlbumAdmin(admin.ModelAdmin):
