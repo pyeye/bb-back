@@ -13,7 +13,7 @@ class DayAdmin(admin.ModelAdmin):
 class SaleAdmin(admin.ModelAdmin):
 
     list_display = ('name', 'is_active')
-    exclude = ('info', 'extra')
+    exclude = ('extra',)
 
     formfield_overrides = {
         models.TextField: {'widget': AdminPagedownWidget},
