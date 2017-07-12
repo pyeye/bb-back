@@ -24,6 +24,8 @@ class AlbumSerializer(serializers.ModelSerializer):
                 'size': (600, 0),
                 'box': obj.cropping,
                 'crop': True,
+                'quality': 95,
+                'HIGH_RESOLUTION': True
             }
         )
         original_url = get_backend().get_thumbnail_url(
@@ -32,6 +34,9 @@ class AlbumSerializer(serializers.ModelSerializer):
                 'size': (1900, 0),
                 'box': obj.cropping,
                 'crop': True,
+                'quality': 95,
+                'HIGH_RESOLUTION': True
+
             }
         )
         return {'thumbnail': thumbnail_url, 'original': original_url}
@@ -52,6 +57,8 @@ class GallerySerializer(serializers.ModelSerializer):
                 'size': (600, 0),
                 'box': obj.cropping,
                 'crop': True,
+                'quality': 95,
+                'HIGH_RESOLUTION': True
             }
         )
         original_url = get_backend().get_thumbnail_url(
@@ -60,6 +67,9 @@ class GallerySerializer(serializers.ModelSerializer):
                 'size': (1900, 0),
                 'box': obj.cropping,
                 'crop': True,
+                'quality': 95,
+                'HIGH_RESOLUTION': True
+
             }
         )
         return {'thumbnail': thumbnail_url, 'original': original_url}
