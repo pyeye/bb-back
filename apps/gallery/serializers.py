@@ -14,10 +14,10 @@ class ImageSerializer(serializers.ModelSerializer):
 
 
 class AlbumSerializer(serializers.ModelSerializer):
-    main_image = serializers.SerializerMethodField('get_main_image')
+    main_image = serializers.SerializerMethodField('get_crop_main_image')
     images = ImageSerializer(many=True, read_only=True)
 
-    def get_main_image(self, obj):
+    def get_crop_main_image(self, obj):
         thumbnail_url = get_backend().get_thumbnail_url(
             obj.main_image,
             {
