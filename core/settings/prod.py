@@ -46,10 +46,10 @@ INSTALLED_APPS = [
     'apps.events',
     'apps.menu',
     'apps.gallery',
-    'apps.sales',
     'apps.news',
     'apps.instagram',
     'apps.reservation',
+    'apps.sales',
 ]
 
 MIDDLEWARE = [
