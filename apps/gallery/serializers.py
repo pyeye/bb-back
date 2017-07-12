@@ -14,8 +14,27 @@ class ImageSerializer(serializers.ModelSerializer):
 
 
 class AlbumSerializer(serializers.ModelSerializer):
-    main_image = VersatileImageFieldSerializer(sizes='album_image')
+    main_image = serializers.SerializerMethodField('get_main_image')
     images = ImageSerializer(many=True, read_only=True)
+
+    def get_main_image(self, obj):
+        thumbnail_url = get_backend().get_thumbnail_url(
+            obj.main_image,
+            {
+                'size': (600, 0),
+                'box': obj.cropping,
+                'crop': True,
+            }
+        )
+        original_url = get_backend().get_thumbnail_url(
+            obj.main_image,
+            {
+                'size': (1900, 0),
+                'box': obj.cropping,
+                'crop': True,
+            }
+        )
+        return {'thumbnail': thumbnail_url, 'original': original_url}
 
     class Meta:
         model = Album
