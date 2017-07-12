@@ -5,6 +5,7 @@ from django.dispatch import receiver
 
 from versatileimagefield.fields import VersatileImageField
 from versatileimagefield.image_warmer import VersatileImageFieldWarmer
+from image_cropping import ImageRatioField
 
 from .managers import GalleryManager
 
@@ -26,7 +27,8 @@ class Album(models.Model):
     description = models.TextField(null=True, blank=True, verbose_name='Описание')
     date = models.DateField(null=False, blank=False, verbose_name='Дата')
     created_at = models.DateTimeField(auto_now=True, null=False, blank=True, verbose_name='Созданно')
-    main_image = VersatileImageField(upload_to=album_upload_location, null=False, blank=False, verbose_name='Обложка')
+    main_image = models.ImageField(upload_to=album_upload_location, null=False, blank=False, verbose_name='Обложка')
+    cropping = ImageRatioField('main_image', '100x100', free_crop=True, size_warning=True)
 
     objects = models.Manager()
     related_objects = GalleryManager()

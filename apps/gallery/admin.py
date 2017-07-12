@@ -1,4 +1,5 @@
 from django.contrib import admin
+from image_cropping import ImageCroppingMixin
 
 from .models import Image, Album
 
@@ -9,7 +10,7 @@ class ImageInline(admin.TabularInline):
     exclude = ('info',)
 
 
-class AlbumAdmin(admin.ModelAdmin):
+class AlbumAdmin(ImageCroppingMixin, admin.ModelAdmin):
 
     def date_f(self, obj):
         return obj.date.strftime("%d.%m.%Y")
