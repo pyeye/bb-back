@@ -1,11 +1,12 @@
 from rest_framework import viewsets
 from rest_framework.response import Response
+from rest_framework_extensions.cache.mixins import CacheResponseMixin
 
 from .serializers import GallerySerializer, AlbumSerializer
 from .models import Album
 
 
-class AlbumViewSet(viewsets.ReadOnlyModelViewSet):
+class AlbumViewSet(CacheResponseMixin, viewsets.ReadOnlyModelViewSet):
 
     queryset = Album.objects.all()
     serializer_class = AlbumSerializer
