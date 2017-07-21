@@ -23,7 +23,7 @@ from apps.instagram.views import InstagramViewSet
 from apps.news.views import NewsViewSet
 from apps.sales.views import SalesAPIView
 from apps.menu.views import MenuViewSet, CategoryAPIView
-from apps.gallery.views import GalleryAPIView, AlbumAPIView
+from apps.gallery.views import AlbumViewSet
 from apps.reservation.views import ReservationAPIView
 
 
@@ -32,13 +32,12 @@ router.register(r'events', EventViewSet, base_name='api-events')
 router.register(r'instagram', InstagramViewSet, base_name='api-instagram')
 router.register(r'news', NewsViewSet, base_name='api-news')
 router.register(r'menu', MenuViewSet, base_name='api-menu')
+router.register(r'albums', AlbumViewSet, base_name='api-album')
 
 urlpatterns = [
     url(r'^api/v1/', include(router.urls)),
     url(r'^api/v1/admin/', admin.site.urls),
     url(r'^api/v1/reservation/', ReservationAPIView.as_view()),
-    url(r'^api/v1/albums/(?P<pk>\d+)', AlbumAPIView.as_view()),
-    url(r'^api/v1/albums/', GalleryAPIView.as_view()),
     url(r'^api/v1/sales/', SalesAPIView.as_view()),
     url(r'^api/v1/category/menu/', CategoryAPIView.as_view()),
 ]
