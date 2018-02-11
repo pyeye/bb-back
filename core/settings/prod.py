@@ -119,6 +119,7 @@ CACHES = {
         "LOCATION": "redis://redis:6379/0",
         "OPTIONS": {
             "CLIENT_CLASS": "django_redis.client.DefaultClient",
+            'PASSWORD': os.getenv("REDIS_PASSWORD"),
         }
     }
 }
