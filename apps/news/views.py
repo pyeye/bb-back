@@ -5,7 +5,7 @@ from .serializers import NewsSerializer
 from .models import News
 
 
-class NewsViewSet(viewsets.ReadOnlyModelViewSet):
+class NewsViewSet(CacheResponseMixin, viewsets.ReadOnlyModelViewSet):
 
     serializer_class = NewsSerializer
 

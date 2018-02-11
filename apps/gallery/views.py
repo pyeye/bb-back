@@ -6,7 +6,7 @@ from .serializers import GallerySerializer, AlbumSerializer
 from .models import Album
 
 
-class AlbumViewSet(viewsets.ReadOnlyModelViewSet):
+class AlbumViewSet(CacheResponseMixin, viewsets.ReadOnlyModelViewSet):
 
     queryset = Album.objects.all()
     serializer_class = AlbumSerializer

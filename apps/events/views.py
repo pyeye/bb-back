@@ -5,7 +5,7 @@ from .serializers import EventSerializer
 from .models import Event
 
 
-class EventViewSet(viewsets.ReadOnlyModelViewSet):
+class EventViewSet(CacheResponseMixin, viewsets.ReadOnlyModelViewSet):
 
     serializer_class = EventSerializer
 

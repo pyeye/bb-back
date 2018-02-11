@@ -5,7 +5,7 @@ from .serializers import InstagramSerializer
 from .models import Instagram
 
 
-class InstagramViewSet(viewsets.ReadOnlyModelViewSet):
+class InstagramViewSet(CacheResponseMixin, viewsets.ReadOnlyModelViewSet):
 
     serializer_class = InstagramSerializer
 
