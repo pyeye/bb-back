@@ -5,7 +5,7 @@ from .serializers import MenuSerializer, CategorySerializer
 from .models import Menu, Category
 
 
-class MenuViewSet(CacheResponseMixin, viewsets.ReadOnlyModelViewSet):
+class MenuViewSet(viewsets.ReadOnlyModelViewSet):
 
     serializer_class = MenuSerializer
 
